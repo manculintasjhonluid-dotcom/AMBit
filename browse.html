@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Browse Skills | AMBit</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- Top Navigation Bar -->
+  <header class="navbar">
+    <div class="logo-container">
+      <a href="index.html" class="logo">AMBit</a>
+    </div>
+    <nav class="nav-links">
+      <a href="index.html">Home</a>
+      <a href="browse.html" class="active">Browse Skills</a>
+      <a href="profile.html">Offer / Request</a>
+    </nav>
+  </header>
+
+  <main class="container">
+    <!-- Page Header -->
+    <section class="page-header">
+      <h1>Explore Student Skills & Requests</h1>
+      <p>Search by keyword or filter by category and availability to find the right classmate.</p>
+    </section>
+
+    <!-- Search & Filter Controls (Matches your Content Page sketch) -->
+    <section class="filter-section">
+      <div class="search-bar">
+        <input type="text" id="searchInput" placeholder="Search skills (e.g., Graphic Design, Python, Tutoring)...">
+        <button type="button" id="searchBtn" class="btn btn-primary">Search</button>
+      </div>
+
+      <div class="filter-controls">
+        <select id="categoryFilter" aria-label="Filter by Category">
+          <option value="all">All Categories</option>
+          <option value="Programming">Programming</option>
+          <option value="Graphic Design">Graphic Design</option>
+          <option value="Video Editing">Video Editing</option>
+          <option value="Writing">Writing</option>
+          <option value="Tutoring">Tutoring</option>
+          <option value="Photography">Photography</option>
+        </select>
+
+        <select id="availabilityFilter" aria-label="Filter by Availability">
+          <option value="all">Any Availability</option>
+          <option value="Available Now">Available Now</option>
+          <option value="Available This Week">Available This Week</option>
+          <option value="Weekends Only">Weekends Only</option>
+        </select>
+
+        <select id="sortFilter" aria-label="Sort Listings">
+          <option value="newest">Sort: Newest</option>
+          <option value="az">Sort: Skill (A–Z)</option>
+        </select>
+
+        <button type="button" id="resetFiltersBtn" class="btn btn-secondary">Reset</button>
+      </div>
+    </section>
+
+    <!-- Empty State Message (Matches User Story #1 Edge Case) -->
+    <div id="noResultsMessage" class="empty-state" style="display: none;">
+      <p>No matching skill providers found.</p>
+      <button type="button" id="emptyResetBtn" class="btn btn-secondary">Reset Filters</button>
+    </div>
+
+    <!-- Skill Listings Grid (JavaScript will dynamically populate cards here) -->
+    <section id="skillsGrid" class="skills-grid">
+      <!-- Sample static card so you can see the structure before JS is added -->
+      <article class="skill-card">
+        <span class="badge">Graphic Design</span>
+        <h3>Poster & UI Mockup Design</h3>
+        <p class="provider-name">Provider: Alex Reyes</p>
+        <p class="skill-desc">Can help with Canva/Figma layouts, event posters, and basic wireframes.</p>
+        <div class="card-footer">
+          <span class="availability">Available This Week</span>
+          <span class="contact-info">Contact: @alex.reyes</span>
+        </div>
+      </article>
+    </section>
+
+    <!-- Community "I Need Help" Requests Section -->
+    <section class="requests-section">
+      <h2>Recent "I Need Help" Requests</h2>
+      <div id="requestsGrid" class="skills-grid">
+        <article class="skill-card request-card">
+          <span class="badge badge-request">Programming Request</span>
+          <h3>Need help debugging JavaScript loops</h3>
+          <p class="provider-name">Seeker: Jamie Cruz</p>
+          <p class="skill-desc">Looking for someone to review my IT23 lab exercise before Friday.</p>
+          <div class="card-footer">
+            <span class="contact-info">Contact: @jamiecruz</span>
+          </div>
+        </article>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <p>&copy; 2026 AMBit — IT23C Community Skill Exchange</p>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>

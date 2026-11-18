@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Offer or Request Skills | AMBit</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- Top Navigation Bar -->
+  <header class="navbar">
+    <div class="logo-container">
+      <a href="index.html" class="logo">AMBit</a>
+    </div>
+    <nav class="nav-links">
+      <a href="index.html">Home</a>
+      <a href="browse.html">Browse Skills</a>
+      <a href="profile.html" class="active">Offer / Request</a>
+    </nav>
+  </header>
+
+  <main class="container">
+    <section class="page-header">
+      <h1>Participate in the Skill Exchange</h1>
+      <p>Create a skill profile to help classmates, or post a request if you need assistance.</p>
+    </section>
+
+    <div class="forms-wrapper">
+      <!-- Form 1: Skill Profile Creation (Matches Skill Profile sketch & User Story #2) -->
+      <section class="form-card">
+        <h2>Offer a Skill (Provider Profile)</h2>
+        <form id="offerSkillForm" novalidate>
+          <div class="form-group">
+            <label for="skillTitle">Skill Title *</label>
+            <input type="text" id="skillTitle" placeholder="e.g., Basic Web Development">
+            <small class="error-msg" id="skillTitleError"></small>
+          </div>
+
+          <div class="form-group">
+            <label for="providerName">Provider Name *</label>
+            <input type="text" id="providerName" placeholder="Your full name or nickname">
+            <small class="error-msg" id="providerNameError"></small>
+          </div>
+
+          <div class="form-group">
+            <label for="skillCategory">Category *</label>
+            <select id="skillCategory">
+              <option value="">-- Select a Category --</option>
+              <option value="Programming">Programming</option>
+              <option value="Graphic Design">Graphic Design</option>
+              <option value="Video Editing">Video Editing</option>
+              <option value="Writing">Writing</option>
+              <option value="Tutoring">Tutoring</option>
+              <option value="Photography">Photography</option>
+            </select>
+            <small class="error-msg" id="skillCategoryError"></small>
+          </div>
+
+          <div class="form-group">
+            <label for="skillDescription">Description *</label>
+            <textarea id="skillDescription" rows="4" placeholder="Describe what you can help with..."></textarea>
+            <small class="error-msg" id="skillDescriptionError"></small>
+          </div>
+
+          <div class="form-group">
+            <label for="skillAvailability">Availability *</label>
+            <select id="skillAvailability">
+              <option value="">-- Select Availability --</option>
+              <option value="Available Now">Available Now</option>
+              <option value="Available This Week">Available This Week</option>
+              <option value="Weekends Only">Weekends Only</option>
+            </select>
+            <small class="error-msg" id="skillAvailabilityError"></small>
+          </div>
+
+          <div class="form-group">
+            <label for="providerContact">Contact Info (Email / Messenger / Handle) *</label>
+            <input type="text" id="providerContact" placeholder="e.g., jhonluid@student.edu or @jhonluid">
+            <small class="error-msg" id="providerContactError"></small>
+          </div>
+
+          <div class="form-actions">
+            <button type="submit" class="btn btn-primary">Post Skill Profile</button>
+            <button type="reset" class="btn btn-secondary">Clear</button>
+          </div>
+          <p id="offerSuccessMsg" class="success-msg"></p>
+        </form>
+      </section>
+
+      <!-- Form 2: "I Need Help" Request Form (Matches User Story #3) -->
+      <section class="form-card">
+        <h2>"I Need Help" Request Form</h2>
+        <form id="needHelpForm" novalidate>
+          <div class="form-group">
+            <label for="requestTitle">What do you need help with? *</label>
+            <input type="text" id="requestTitle" placeholder="e.g., Need a tutor for CSS Flexbox">
+            <small class="error-msg" id="requestTitleError"></small>
+          </div>
+
+          <div class="form-group">
+            <label for="seekerName">Your Name *</label>
+            <input type="text" id="seekerName" placeholder="Your name">
+            <small class="error-msg" id="seekerNameError"></small>
+          </div>
+
+          <div class="form-group">
+            <label for="requestCategory">Skill Category *</label>
+            <select id="requestCategory">
+              <option value="">-- Select a Category --</option>
+              <option value="Programming">Programming</option>
+              <option value="Graphic Design">Graphic Design</option>
+              <option value="Video Editing">Video Editing</option>
+              <option value="Writing">Writing</option>
+              <option value="Tutoring">Tutoring</option>
+              <option value="Photography">Photography</option>
+            </select>
+            <small class="error-msg" id="requestCategoryError"></small>
+          </div>
+
+          <div class="form-group">
+            <label for="requestDescription">Task Description *</label>
+            <textarea id="requestDescription" rows="4" placeholder="Explain the task or skill you want to learn..."></textarea>
+            <small class="error-msg" id="requestDescriptionError"></small>
+          </div>
+
+          <div class="form-group">
+            <label for="seekerContact">Your Contact Details *</label>
+            <input type="text" id="seekerContact" placeholder="e.g., @yourhandle or email">
+            <small class="error-msg" id="seekerContactError"></small>
+          </div>
+
+          <div class="form-actions">
+            <button type="submit" class="btn btn-primary">Submit Request</button>
+            <button type="reset" class="btn btn-secondary">Clear</button>
+          </div>
+          <p id="requestSuccessMsg" class="success-msg"></p>
+        </form>
+      </section>
+    </div>
+  </main>
+
+  <footer>
+    <p>&copy; 2026 AMBit — IT23C Community Skill Exchange</p>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
