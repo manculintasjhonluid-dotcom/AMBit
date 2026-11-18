@@ -1,6 +1,7 @@
 // Step 1: Starter Data & localStorage Helpers
 const defaultSkills = [
   {
+    id: "default-skill-1",
     title: "Poster & UI Mockup Design",
     provider: "Alex Reyes",
     category: "Graphic Design",
@@ -9,6 +10,7 @@ const defaultSkills = [
     contact: "@alex.reyes"
   },
   {
+    id: "default-skill-2",
     title: "HTML, CSS & JavaScript Tutoring",
     provider: "Manculintas, Jhonluid",
     category: "Programming",
@@ -26,12 +28,11 @@ function getSkills() {
 function saveSkills(skills) {
   localStorage.setItem("ambit_skills", JSON.stringify(skills));
 }
-// for creating the request form and resuest sent .
-// for submiting the fikesand files work 
 
 // Step 2A: Starter Requests & localStorage Helpers
 const defaultRequests = [
   {
+    id: "default-req-1",
     title: "Need help debugging JavaScript loops",
     seeker: "Jamie Cruz",
     category: "Programming",
@@ -47,6 +48,21 @@ function getRequests() {
 
 function saveRequests(requests) {
   localStorage.setItem("ambit_requests", JSON.stringify(requests));
+}
+
+// Delete Helpers
+function deleteSkill(id) {
+  if (!confirm("Delete this skill post?")) return;
+  const updated = getSkills().filter(skill => skill.id !== id);
+  saveSkills(updated);
+  filterAndSortSkills();
+}
+
+function deleteRequest(id) {
+  if (!confirm("Delete this help request?")) return;
+  const updated = getRequests().filter(req => req.id !== id);
+  saveRequests(updated);
+  renderRequests();
 }
 
 // Step 2B: Display Skill & Request Cards on browse.html
@@ -68,7 +84,10 @@ function renderSkills(skillsList) {
     const card = document.createElement("article");
     card.className = "skill-card";
     card.innerHTML = `
-      <span class="badge">${skill.category}</span>
+      <div class="card-top">
+        <span class="badge">${skill.category}</span>
+        <button type="button" class="delete-btn" onclick="deleteSkill('${skill.id}')">Delete</button>
+      </div>
       <h3>${skill.title}</h3>
       <p class="provider-name">Provider: ${skill.provider}</p>
       <p class="skill-desc">${skill.description}</p>
@@ -93,7 +112,10 @@ function renderRequests() {
     const card = document.createElement("article");
     card.className = "skill-card request-card";
     card.innerHTML = `
-      <span class="badge badge-request">${req.category} Request</span>
+      <div class="card-top">
+        <span class="badge badge-request">${req.category} Request</span>
+        <button type="button" class="delete-btn" onclick="deleteRequest('${req.id}')">Delete</button>
+      </div>
       <h3>${req.title}</h3>
       <p class="provider-name">Seeker: ${req.seeker}</p>
       <p class="skill-desc">${req.description}</p>
@@ -166,7 +188,6 @@ function initBrowsePage() {
 
 initBrowsePage();
 
-
 // Step 4A: Form Field Validation Helper
 function validateField(inputId, errorId, message) {
   const input = document.getElementById(inputId);
@@ -200,6 +221,7 @@ if (offerForm) {
 
     const skills = getSkills();
     skills.unshift({
+      id: Date.now().toString(),
       title: document.getElementById("skillTitle").value.trim(),
       provider: document.getElementById("providerName").value.trim(),
       category: document.getElementById("skillCategory").value,
@@ -230,6 +252,7 @@ if (requestForm) {
 
     const requests = getRequests();
     requests.unshift({
+      id: Date.now().toString(),
       title: document.getElementById("requestTitle").value.trim(),
       seeker: document.getElementById("seekerName").value.trim(),
       category: document.getElementById("requestCategory").value,
