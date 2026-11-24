@@ -1,7 +1,17 @@
-// Step 1: Starter Data & localStorage Helpers
+// Step 1: Browser User ID, Starter Data & localStorage Helpers
+function getUserId() {
+  let userId = localStorage.getItem("ambit_user_id");
+  if (!userId) {
+    userId = "user_" + Date.now().toString();
+    localStorage.setItem("ambit_user_id", userId);
+  }
+  return userId;
+}
+
 const defaultSkills = [
   {
     id: "default-skill-1",
+    ownerId: "system",
     title: "Poster & UI Mockup Design",
     provider: "Alex Reyes",
     category: "Graphic Design",
@@ -11,6 +21,7 @@ const defaultSkills = [
   },
   {
     id: "default-skill-2",
+    ownerId: "system",
     title: "HTML, CSS & JavaScript Tutoring",
     provider: "Manculintas, Jhonluid",
     category: "Programming",
@@ -33,6 +44,7 @@ function saveSkills(skills) {
 const defaultRequests = [
   {
     id: "default-req-1",
+    ownerId: "system",
     title: "Need help debugging JavaScript loops",
     seeker: "Jamie Cruz",
     category: "Programming",
@@ -50,16 +62,24 @@ function saveRequests(requests) {
   localStorage.setItem("ambit_requests", JSON.stringify(requests));
 }
 
-// Delete Helpers
+// Owner-Protected Delete Helpers
 function deleteSkill(id) {
-  if (!confirm("Delete this skill post?")) return;
+  const currentUser = getUserId();
+  const target = getSkills().find(skill => skill.id === id);
+  if (!target || target.ownerId !== currentUser) return;
+
+  if (!confirm("Delete your skill post?")) return;
   const updated = getSkills().filter(skill => skill.id !== id);
   saveSkills(updated);
   filterAndSortSkills();
 }
 
 function deleteRequest(id) {
-  if (!confirm("Delete this help request?")) return;
+  const currentUser = getUserId();
+  const target = getRequests().find(req => req.id === id);
+  if (!target || target.ownerId !== currentUser) return;
+
+  if (!confirm("Delete your help request?")) return;
   const updated = getRequests().filter(req => req.id !== id);
   saveRequests(updated);
   renderRequests();
@@ -71,6 +91,7 @@ function renderSkills(skillsList) {
   const noResults = document.getElementById("noResultsMessage");
   if (!skillsGrid) return;
 
+  const currentUser = getUserId();
   skillsGrid.innerHTML = "";
 
   if (skillsList.length === 0) {
@@ -81,15 +102,16 @@ function renderSkills(skillsList) {
   noResults.style.display = "none";
 
   skillsList.forEach(skill => {
+    const isOwner = skill.ownerId === currentUser;
     const card = document.createElement("article");
     card.className = "skill-card";
     card.innerHTML = `
       <div class="card-top">
         <span class="badge">${skill.category}</span>
-        <button type="button" class="delete-btn" onclick="deleteSkill('${skill.id}')">Delete</button>
+        ${isOwner ? `<button type="button" class="delete-btn" onclick="deleteSkill('${skill.id}')">Delete</button>` : ""}
       </div>
       <h3>${skill.title}</h3>
-      <p class="provider-name">Provider: ${skill.provider}</p>
+      <p class="provider-name">Provider: ${skill.provider} ${isOwner ? '<span class="owner-tag">(You)</span>' : ""}</p>
       <p class="skill-desc">${skill.description}</p>
       <div class="card-footer">
         <span class="availability">${skill.availability}</span>
@@ -105,19 +127,21 @@ function renderRequests() {
   const requestsGrid = document.getElementById("requestsGrid");
   if (!requestsGrid) return;
 
+  const currentUser = getUserId();
   const requests = getRequests();
   requestsGrid.innerHTML = "";
 
   requests.forEach(req => {
+    const isOwner = req.ownerId === currentUser;
     const card = document.createElement("article");
     card.className = "skill-card request-card";
     card.innerHTML = `
       <div class="card-top">
         <span class="badge badge-request">${req.category} Request</span>
-        <button type="button" class="delete-btn" onclick="deleteRequest('${req.id}')">Delete</button>
+        ${isOwner ? `<button type="button" class="delete-btn" onclick="deleteRequest('${req.id}')">Delete</button>` : ""}
       </div>
       <h3>${req.title}</h3>
-      <p class="provider-name">Seeker: ${req.seeker}</p>
+      <p class="provider-name">Seeker: ${req.seeker} ${isOwner ? '<span class="owner-tag">(You)</span>' : ""}</p>
       <p class="skill-desc">${req.description}</p>
       <div class="card-footer">
         <span class="contact-info">Contact: ${req.contact}</span>
@@ -222,6 +246,7 @@ if (offerForm) {
     const skills = getSkills();
     skills.unshift({
       id: Date.now().toString(),
+      ownerId: getUserId(),
       title: document.getElementById("skillTitle").value.trim(),
       provider: document.getElementById("providerName").value.trim(),
       category: document.getElementById("skillCategory").value,
@@ -253,6 +278,7 @@ if (requestForm) {
     const requests = getRequests();
     requests.unshift({
       id: Date.now().toString(),
+      ownerId: getUserId(),
       title: document.getElementById("requestTitle").value.trim(),
       seeker: document.getElementById("seekerName").value.trim(),
       category: document.getElementById("requestCategory").value,
