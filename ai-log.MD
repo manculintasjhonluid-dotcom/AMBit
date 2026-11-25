@@ -31,3 +31,11 @@ This document records how AI pair-programming was used to plan, structure, style
 ## Session 5: End-to-End Testing & Documentation
 * **Goal:** Verify all acceptance criteria and finalize repository documentation.
 * **What I Did:** Tested blank form submissions, data persistence across browser refreshes, keyword/category filters, empty search resets, and mobile responsiveness. Completed `README.md` and `ai-log.md`.
+
+## Session 6: Category Card Background Images (`index.html`, `style.css`)
+* **Goal:** Add distinct background photos to each of the 5 Popular Skill Category cards while keeping the images properly framed and the text readable.
+* **What I Did:** 
+  * Organized the 5 category photos inside an `images/` folder and added unique modifier classes (`cat-programming`, `cat-graphic-design`, etc.) to each `.category-card` link in `index.html`.
+  * Updated `.category-card` in `style.css` with `background-size: cover`, `background-position: center`, `overflow: hidden`, and Flexbox bottom-alignment.
+  * Applied `linear-gradient` overlays paired with exact case-sensitive `url("images/...")` paths so white text remains high-contrast over every photo.
+* **Key Takeaway:** Checking exact filename spelling and capitalization (such as `Programming.jpg` vs. lowercase files) prevents broken images when deploying to case-sensitive hosts like GitHub Pages.

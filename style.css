@@ -121,6 +121,9 @@ textarea:focus-visible {
   text-align: center;
   padding: 80px 20px;
   background-color: var(--color-primary);
+  background-image: linear-gradient(rgba(11, 90, 84, 0.72), rgba(15, 23, 42, 0.82)), url("images/main.jpg");
+  background-size: cover;
+  background-position: center;
   color: #ffffff;
 }
 
